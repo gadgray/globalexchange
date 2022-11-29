@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" 
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard - SB Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
+        <link type="image/x-icon" href="document_files/fav-icon.png" rel="icon">
+<link rel="stylesheet" type="text/css" href="document_files/responsive.css">
+    </head>
+    <body class="sb-nav-fixed">
+        
+		<!-- Start preloader -->
+		<div id="preloader"></div>
+		<!-- End preloader -->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-black">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="Dashboard.html">David Damson</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                       
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="index.html">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark bg-black" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="Dashboard.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Account</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Fund Account
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="fund.html">Deposit Funds</a>
+                                    <a class="nav-link" href="Withdraw.html">Withdraw Funds</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                                Refferal
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Refer Your Friends
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="login.html">Login</a>
+                                            <a class="nav-link" href="register.html">Register</a>
+                                            <a class="nav-link" href="password.html">Forgot Password</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                       Rewards
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="sb-sidenav-menu-heading">Account</div>
+                            <a class="nav-link" href="charts.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Edit Account
+                            </a>
+                            <a class="nav-link" href="tables.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Transaction Logs
+                            </a>
+                            
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer" style="background-color: darkblue;">
+                        <div class="small">Logged in as:</div>
+                        David Damson
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content" >
+                <main>
+                    <div class="container-fluid px-4 row">
+                        <h1 class="mt-4">Welcome Dave</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="col-xl-6  w-layout-grid"  style="width: auto ;">
+                            
+                            <div class="card mb-4" style="height: 7rem; background-color: rgb(198, 198, 198);">
+                                <div class="card-header  " style="  border-bottom-left-radius: 5%;
+                                border-bottom-right-radius: 5%; background-color: rgb(122, 123, 123);">
+                                    <i class="fas fa-chart-area me-1"></i>
+                                    Account Balance
+                                </div>
+                              <h2 style="text-align: center; padding-top: 1rem;"> $558</h2>
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-area me-1"></i>
+                                    Mining Balance  
+                                </div>
+                                <h2 style="text-align: center; padding-top: 1rem;"> $12</h2>
+                              
+                            </div><div class="card mb-4">
+                                <div class="card-header">
+                                    <i class="fas fa-chart-area me-1"></i>
+                                    Total Profit Made
+                                </div>
+                                <h2 style="text-align: center; padding-top: 1rem;"> $230</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-info text-white mb-4">
+                                    <div class="card-body">Starters Plan</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">ACTIVE PLAN</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-inactive text-white mb-4">
+                                    <div class="card-body">Standard Plan</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">UPGRADE PLAN</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-inactive text-white mb-4">
+                                    <div class="card-body">Premium Plan</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">UPGRADE PLAN</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-inactive text-white mb-4">
+                                    <div class="card-body">Global Plan</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">UPGRADE PLAN</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                         Example
+                                    </div>
+                                    <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+    <div id="tradingview_a8cae"></div>
+    <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSD/?exchange=INDEX" rel="noopener" target="_blank"><span class="blue-text">BTCUSD Chart</span></a> by TradingView</div>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+    new TradingView.widget(
+    {
+    "autosize": true,
+    "symbol": "INDEX:BTCUSD",
+    "interval": "D",
+    "timezone": "Etc/UTC",
+    "theme": "dark",
+    "style": "1",
+    "locale": "en",
+    "toolbar_bg": "#f1f3f6",
+    "enable_publishing": false,
+    "allow_symbol_change": true,
+    "container_id": "tradingview_a8cae"
+  }
+    );
+    </script>
+  </div>
+  <!-- TradingView Widget END -->
+                                    
+                                </div>
+                           
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                
+                                Transaction History
+                            </div>
+                            <div class="container mt-5 px-2">
+    
+                                <div class="mb-2 d-flex justify-content-between align-items-center">
+                                    
+                                  
+                                    
+                                </div>
+                                <div class="table-responsive">
+                                <table class="table table-responsive table-borderless">
+                                    
+                                  <thead>
+                                    <tr class="bg-light">
+                                      
+                                      <th scope="col" width="5%">Trans ID</th>
+                                      <th scope="col" width="20%">Trans Type</th>
+                                      <th scope="col" width="10%">Date</th>
+                                      <th scope="col" width="20%">Status</th>
+                                      <th scope="col" class="text-end" width="20%"><span>Amount</span></th>
+                                      <th scope="col" width="20%">Gateway</th>
+                                      
+                                    </tr>
+                                  </thead>
+                              <tbody>
+                                <tr>
+                                  
+                                  <td>1212</td>
+                                  <td>Upgrade</td>
+                                  <td>1 Oct, 21</td>                                 
+                                  <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1">Paid</span></td>
+                                  <td class="text-end"><span class="fw-bolder">$24</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                                  <td><img src="assets/img/Bitcoin.png" width="25"> BTC</td>
+                                  
+                                </tr>
+                                <tr>
+                                  
+                                    <td>1212</td>
+                                    <td>Upgrade</td>
+                                    <td>3 Feb, 21</td>                                 
+                                    <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1">Paid</span></td>
+                                    <td class="text-end"><span class="fw-bolder">$45</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                                    <td><img src="assets/img/Ethereum.png" width="25"> ETH</td>
+                                    
+                                  </tr>
+                                  <tr>
+                                  
+                                    <td>3231</td>
+                                    <td>Withdraw Funds</td>
+                                    <td>1 Oct, 21</td>                                 
+                                    <td><i class="fa fa-check-circle-o text-danger"></i><span class="ms-1">failed</span></td>
+                                    <td class="text-end"><span class="fw-bolder">$25</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                                    <td><img src="assets/img/Dogecoin.png" width="25"> DOGE</td>
+                                    
+                                  </tr>
+                                  <tr>
+                                  
+                                    <td>3112</td>
+                                    <td>Upgrade</td>
+                                    <td>1 Oct, 21</td>                                 
+                                    <td><i class="fa fa-check-circle-o text-primary"></i><span class="ms-1">Pending</span></td>
+                                    <td class="text-end"><span class="fw-bolder">$24</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                                    <td><img src="assets/img/Bitcoin.png" width="25"> BTC</td>
+                                    
+                                  </tr>
+                                  <tr>
+                                  
+                                    <td>2321</td>
+                                    <td>Upgrade</td>
+                                    <td>1 Oct, 21</td>                                 
+                                    <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1">Paid</span></td>
+                                    <td class="text-end"><span class="fw-bolder">$24</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                                    <td><img src="assets/img/Bitcoin.png" width="25"> BTC</td>
+                                    
+                                  </tr>
+                                  <tr>
+                                  
+                                    <td>1212</td>
+                                    <td>Upgrade</td>
+                                    <td>1 Oct, 21</td>                                 
+                                    <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1">Paid</span></td>
+                                    <td class="text-end"><span class="fw-bolder">$24</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                                    <td><img src="assets/img/Bitcoin.png" width="25"> BTC</td>
+                                    
+                                  </tr>
+                                        
+                                  
+                              </tbody>
+                            </table>
+                              
+                              </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Global Exchange  Trading 2022</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script data-cfasync="false" src="document_files/email-decode.min.js"></script>
+        <script src="document_files/jquery-3.4.1.min.js"></script>
+		<script src="document_files/animation.js"></script>
+		<script src="document_files/custom.js"></script>
+		
+		<script src="document_files/bootstrap.min.js"></script>
+		<script src="document_files/owl.carousel.min.js"></script>
+		<script src="document_files/snap.svg-min.js"></script>
+		<script src="document_files/jquery.listtopie.min.js"></script>
+		
+	
+		
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+    </body>
+</html>
