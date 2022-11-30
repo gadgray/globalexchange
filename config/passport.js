@@ -12,7 +12,7 @@ module.exports = {
                 console.log('user_local')
                 User.findOne({email:email}, async (err, user)=>{
                     if(!user){
-                        
+                        // req.flash('error_msg', 'You do not have an account')
                         return done(null, false, {message : 'You do not have an account'})
                     }
                     await bcrypt.compare(password, user.password, (err, isMatch)=>{
@@ -25,6 +25,7 @@ module.exports = {
                             return done(null, user)
 
                         }else{
+                            // req.flash('error_msg', 'incorrect password')
                             return done(null, false, {message: 'incorrect password'})
                         }
                         
@@ -56,7 +57,7 @@ module.exports = {
                 console.log('Admin_local')
                 Admin.findOne({userName:username}, async (err, user)=>{
                     if(!user){
-                        req.flash('error_msg', 'You do not have an account')
+                        // req.flash('error_msg', 'unauthorized user')
                         return done(null, false, {message : 'You do not have an account'})
                     }
                     await bcrypt.compare(password, user.password, (err, isMatch)=>{
@@ -69,7 +70,7 @@ module.exports = {
                             return done(null, user)
 
                         }else{
-                            req.flash('error_msg', 'incorrect password')
+                            // req.flash('error_msg', 'incorrect password')
                             return done(null, false, {message: 'incorrect password'})
                         }
                         

@@ -20,7 +20,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    
+    accountBalance:{
+        type: String,
+    },
+    miningBalance:{
+        type: String,
+    },
+    plan:{
+        type: String,
+    },
+
     transations: [
         {type: mongoose.Schema.Types.ObjectId, ref: 'Transaction'}
     ],

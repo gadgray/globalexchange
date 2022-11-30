@@ -38,8 +38,9 @@ app.use(session({
 ));
 
 // passport
-require('./config/passport').UsersAuth(passport);
 require('./config/passport').AdminAuth(passport);
+require('./config/passport').UsersAuth(passport);
+
 
 // passport
 app.use(passport.initialize());
@@ -59,5 +60,6 @@ app.use((req, res, next)=>{
 // routes
 app.use('/', require('./routes/index'));
 app.use('/dashboard', require('./routes/dasboard'));
+app.use('/admindashboard', require('./routes/admindashboard'));
 
 app.listen(PORT, console.log(`app ruuning on port ${PORT}`))

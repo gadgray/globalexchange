@@ -7,6 +7,7 @@ const router = express.Router()
 
 // models
 const User = require('../models/User');
+const Admin = require('../models/Admin');
 
 // nodemail middleware
 const sendMail = require('../middleware/nodemailer');
@@ -137,6 +138,71 @@ router.post('/register', async (req,res)=>{
 })
 
 
+
+// @@admin routes
+// adminregister
+// get
+router.get('/adminregister', (req,res)=>{
+
+    res.render('adminregister', {layout: 'LayoutC'})
+})
+// post
+router.post('/adminregister', (req,res)=>{
+    const {name, username, email, password, password2} = req.body;
+    if(password != password2){
+        req.flash('error_msg', 'passwords do not match')
+        res.render('adminregister', {layout: 'LayoutC', name, username, password, password2})
+    }else{
+        Admin.findOne({userName: username}, (err, user)=>{
+            if(!err){
+                if(user){
+                    req.flash('error_msg', 'username already exists')
+                    res.redirect('/adminregister')
+                }else{
+                    bcrypt.genSalt(8,(err, salt)=>{
+
+                        bcrypt.hash(password, salt, (err, hash)=>{
+                            const admin = new Admin({
+                                fullName: name,
+                                userName: username,
+                                email: email,
+                                password: hash
+                            })
+
+                            admin.save(err=>{
+                                if(err){
+                                    console.log(err);
+                                    req.flash('error_msg', 'error creating user')
+                                    res.redirect('/adminregister')
+                                }else{
+                                    req.flash('success_msg', 'new admin created!')
+                                    res.redirect('/admindashboard');
+                                }
+                            })
+
+                        })
+                    } )
+                    
+                }
+            }else{
+                console.log(err);
+            }
+        })
+    }
+})
+
+// @@adminogin routes
+// get
+router.get('/adminlogin', async (req,res)=>{
+
+    res.render('adminlogin');
+})
+router.post('/adminlogin', passport.authenticate('admin_local', {failureRedirect: '/adminlogin'}), 
+(req,res)=>{
+
+    res.redirect('/admindashboard')
+}
+)
 
 
 
