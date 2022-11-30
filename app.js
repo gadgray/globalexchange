@@ -38,9 +38,11 @@ app.use(session({
 ));
 
 // passport
-require('./config/passport').AdminAuth(passport);
-require('./config/passport').UsersAuth(passport);
-
+// require('./config/passport').AdminAuth(passport);
+// require('./config/passport').UsersAuth(passport);
+// passport
+require('./config/passport').AdminAuth();
+require('./config/passport').UsersAuth();
 
 // passport
 app.use(passport.initialize());

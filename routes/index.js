@@ -8,7 +8,7 @@ const router = express.Router()
 // models
 const User = require('../models/User');
 const Admin = require('../models/Admin');
-
+const Contact = require('../models/Contact');
 // nodemail middleware
 const sendMail = require('../middleware/nodemailer');
 
@@ -19,6 +19,7 @@ router.get('/', async (req,res)=>{
 
     res.sendFile(path.join(__dirname, '../pages/index.html'))
 })
+
 // about
 router.get('/about', async (req,res)=>{
 
@@ -37,18 +38,63 @@ router.get('/plan', async (req,res)=>{
     res.sendFile(path.join(__dirname, '../pages/plan.html'))
 })
 
+// contacts
+router.get('/contact', (req,res)=>{
+
+
+    res.render('contact')
+})
+router.post('/contact', async (req,res)=>{
+
+    const {name, email, subject, phone, message} = req.body;
+
+    const contact = new Contact({
+        name: name,
+        email:email,
+        subject: subject,
+        phoneNo: phone,
+        message: message
+    })
+
+    await contact.save(err=>{
+        if(err){
+            req.flash('error_msg', 'something went wrong... please try again');
+            res.redirect('/contact');
+        }else{
+            req.flash('success_msg', 'message sent successfully. we will get back to soon! ');
+            res.redirect('/contact');
+        }
+    })
+})
+
+
 // @@login routes
 // get
 router.get('/login', async (req,res)=>{
 
     res.render('login');
 })
-router.post('/login', passport.authenticate('user_local', {failureRedirect: '/login'}), 
+router.post('/login', passport.authenticate('user_local', {
+    failureRedirect: '/login',
+    failureFlash: true
+}), 
 (req,res)=>{
 
     res.redirect('/dashboard')
 }
 )
+
+// logout
+router.get('/logout', (req,res,next)=>{
+    req.logout(err=>{
+        if(err){
+            console.log(err)
+            return next(err)
+        }
+        req.flash('success_msg', 'logout successful')
+        res.redirect('/login')
+    })
+})
 
 
 // @@registr routes
@@ -197,12 +243,66 @@ router.get('/adminlogin', async (req,res)=>{
 
     res.render('adminlogin');
 })
-router.post('/adminlogin', passport.authenticate('admin_local', {failureRedirect: '/adminlogin'}), 
+router.post('/adminlogin', passport.authenticate('admin_local', 
+{
+    failureRedirect: '/adminlogin',
+    failureFlash: true}), 
 (req,res)=>{
 
     res.redirect('/admindashboard')
 }
 )
+
+// update User
+router.post('/updateuser', (req, res)=>{
+    const update = {
+        plan: req.body.plan,
+        accountBalance: req.body.accBal,
+        miningBalance: req.body.minBal,
+
+    }
+    console.log(req.body)
+    User.findByIdAndUpdate(req.body.id, update, (err)=>{
+        if(!err){
+            req.flash('success_msg', 'udated');
+            res.redirect('/admindashboard');
+        }else{
+            req.flash('error_msg', 'error udating');
+            res.redirect('/admindashboard');
+        }
+    })
+     
+})
+
+// delete user
+router.get('/deleteuser/:id', (req,res)=>{
+    User.findByIdAndDelete(req.params.id, (err)=>{
+        if(!err){
+            req.flash('success_msg', 'Deleted');
+            res.redirect('/admindashboard');
+        }else{
+            req.flash('error_msg', 'Error Deleting');
+            res.redirect('/admindashboard');
+        }
+    })
+})
+
+
+// delete contacts
+router.get('/deletecontact/:id', (req, res)=>{
+
+    Contact.findByIdAndDelete(req.params.id, err=>{
+
+        if(!err){
+            req.flash('success_msg', 'Deleted');
+            res.redirect('/admindashboard/contacts');
+        }else{
+            req.flash('error_msg', 'Error Deleting');
+            res.redirect('/admindashboard/contacts');
+        }
+        
+    })
+})
 
 
 

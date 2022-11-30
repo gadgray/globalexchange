@@ -15,7 +15,8 @@ const transactionSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    status: {
+    
+    gateway: {
         type: String,
         required: true,
     },

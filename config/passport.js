@@ -1,38 +1,47 @@
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const passport = require('passport')
 
 const User = require('../models/User');
 const Admin = require('../models/Admin');
 
 module.exports = {
-    UsersAuth: async (passport)=>{
+    UsersAuth: ()=>{
         passport.use('user_local', new LocalStrategy({usernameField: 'email'},
             (email, password, done)=>{
                 console.log('user_local')
-                User.findOne({email:email}, async (err, user)=>{
-                    if(!user){
-                        // req.flash('error_msg', 'You do not have an account')
-                        return done(null, false, {message : 'You do not have an account'})
-                    }
-                    await bcrypt.compare(password, user.password, (err, isMatch)=>{
-
+                try {
+                    User.findOne({email:email}, (err, user)=>{
                         if(err){
-                            console.log(err)
+                            return done(err, false)
                         }
-
-                        if(isMatch){
-                            return done(null, user)
-
-                        }else{
-                            // req.flash('error_msg', 'incorrect password')
-                            return done(null, false, {message: 'incorrect password'})
+                        if(!user){
+                            // req.flash('error_msg', 'You do not have an account')
+                            return done(null, false, {message : 'You do not have an account'})
                         }
-                        
+                        bcrypt.compare(password, user.password, (err, isMatch)=>{
+    
+                            if(err){
+                                console.log(err)
+                            }
+    
+                            if(isMatch){
+                                return done(null, user)
+    
+                            }else{
+                                // req.flash('error_msg', 'incorrect password')
+                                return done(null, false, {message: 'incorrect password'})
+                            }
+                            
+                        })
+    
+    
                     })
-
-
-                })
+                } catch (err) {
+                    req.flash('error_msg', err)
+                }
+                
             }
 
         ))
@@ -41,43 +50,55 @@ module.exports = {
             return done(null, user.id)
           });
           
-          passport.deserializeUser(async function(id, done) {
-            await User.findById(id, (err,user)=>{
+          passport.deserializeUser(function(id, done) {
+            User.findById(id, (err,user)=>{
                
-                    return done(err, user)
+                return done(err, user)
                 
                 
             })
           });
     
     },
-    AdminAuth: async (passport)=>{
+
+    AdminAuth: ()=>{
+
         passport.use('admin_local', new LocalStrategy(
             (username, password, done)=>{
                 console.log('Admin_local')
-                Admin.findOne({userName:username}, async (err, user)=>{
-                    if(!user){
-                        // req.flash('error_msg', 'unauthorized user')
-                        return done(null, false, {message : 'You do not have an account'})
-                    }
-                    await bcrypt.compare(password, user.password, (err, isMatch)=>{
-
+                try {
+                    Admin.findOne({userName:username}, (err, user)=>{
                         if(err){
-                            console.log(err)
+                            return done(err, false,{message: err})
                         }
-
-                        if(isMatch){
-                            return done(null, user)
-
-                        }else{
-                            // req.flash('error_msg', 'incorrect password')
-                            return done(null, false, {message: 'incorrect password'})
+                        if(!user){
+                            // req.flash('error_msg', 'unauthorized user')
+                            return done(null, false, {message : 'Unauthorized personnel'})
                         }
-                        
+                        bcrypt.compare(password, user.password, (err, isMatch)=>{
+    
+                            if(err){
+                                console.log(err)
+                            }
+    
+                            if(isMatch){
+                                return done(null, user)
+    
+                            }else{
+                                // req.flash('error_msg', 'incorrect password')
+                                return done(null, false, {message: 'incorrect password'})
+                            }
+                            
+                        })
+    
+    
                     })
-
-
-                })
+                    
+                } catch (error) {
+                    req.flash('error_msg', err)
+                    console.log(err)
+                }
+                
             }
 
         ))
@@ -86,8 +107,8 @@ module.exports = {
             return done(null, user.id)
           });
           
-          passport.deserializeUser(async function(id, done) {
-            await Admin.findById(id, (err,user)=>{
+          passport.deserializeUser(function(id, done) {
+            Admin.findById(id, (err,user)=>{
                
                     return done(err, user)
                 

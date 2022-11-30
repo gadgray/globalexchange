@@ -91,31 +91,31 @@
 					</div>
 					<div class="col-md-6 wow fadeInRight" style="visibility: hidden;">
 						<h3 class="blog-comment-heading">Leave a message here</h3>
-						<form>
+						<form action="/contact" method="post">
 							<div class="row">
 								<div class="col-md-6">
 								  	<div class="form-group">
-								    	<input type="text" class="form-control" placeholder="Name*" required="">
+								    	<input type="text" class="form-control" placeholder="Name*" name="name" required>
 								  	</div>
 								</div>
 								<div class="col-md-6">
 								  	<div class="form-group">
-								    	<input type="text" class="form-control" placeholder="Email*" required="">
+								    	<input type="email" class="form-control" placeholder="Email*" name="email" required >
 								  	</div>
 								</div>
 								<div class="col-md-6">
 								  	<div class="form-group">
-								    	<input type="text" class="form-control" placeholder="Subject*" required="">
+								    	<input type="text" class="form-control" placeholder="Subject*" name="subject" required>
 								  	</div>
 								</div>
 								<div class="col-md-6">
 								  	<div class="form-group">
-								    	<input type="text" class="form-control" placeholder="Phone*" required="">
+								    	<input type="tel" class="form-control" placeholder="Phone*" name="phone" required>
 								  	</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<textarea class="form-control" placeholder="Massage*" required=""></textarea>
+										<textarea class="form-control" placeholder="Massage*" name="message" required></textarea>
 									</div>
 								</div>
 								<div class="col-md-12">
