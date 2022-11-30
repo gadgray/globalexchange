@@ -1,0 +1,135 @@
+<!-- navbar -->
+<%- include('partials/admin/nav') %>
+
+<div id="layoutSidenav">
+    
+    <!-- sidenav -->
+    <%- include('partials/admin/sidenav') %>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Tables</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="Dashboard.html">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Tables</li>
+                </ol>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
+                        <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
+                        .
+                    </div>
+                </div>
+               
+                <div class="card mb-4">
+                    <div class="card-header">
+                        
+                        Transaction History
+                    </div>
+                    <div class="container mt-5 px-2">
+
+                        <div class="mb-2 d-flex justify-content-between align-items-center">
+                            
+                          
+                            
+                        </div>
+                        <div class="table-responsive">
+                        <table class="table table-responsive table-borderless">
+                            
+                          <thead>
+                            <tr class="bg-light">
+                              
+                              <th scope="col" width="5%">Trans ID</th>
+                              <th scope="col" width="20%">Trans Type</th>
+                              <th scope="col" width="10%">Date</th>
+                              <th scope="col" width="20%">Status</th>
+                              <th scope="col" class="text-end" width="20%"><span>Amount</span></th>
+                              <th scope="col" width="20%">Gateway</th>
+                              
+                            </tr>
+                          </thead>
+                      <tbody>
+                        <tr>
+                          
+                          <td>1212</td>
+                          <td>Upgrade</td>
+                          <td>1 Oct, 21</td>                                 
+                          <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1">Paid</span></td>
+                          <td class="text-end"><span class="fw-bolder">$24</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                          <td><img src="assets/img/Bitcoin.png" width="25"> BTC</td>
+                          
+                        </tr>
+                        <tr>
+                          
+                            <td>1212</td>
+                            <td>Upgrade</td>
+                            <td>3 Feb, 21</td>                                 
+                            <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1">Paid</span></td>
+                            <td class="text-end"><span class="fw-bolder">$45</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                            <td><img src="assets/img/Ethereum.png" width="25"> ETH</td>
+                            
+                          </tr>
+                          <tr>
+                          
+                            <td>3231</td>
+                            <td>Withdraw Funds</td>
+                            <td>1 Oct, 21</td>                                 
+                            <td><i class="fa fa-check-circle-o text-danger"></i><span class="ms-1">failed</span></td>
+                            <td class="text-end"><span class="fw-bolder">$25</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                            <td><img src="assets/img/Dogecoin.png" width="25"> DOGE</td>
+                            
+                          </tr>
+                          <tr>
+                          
+                            <td>3112</td>
+                            <td>Upgrade</td>
+                            <td>1 Oct, 21</td>                                 
+                            <td><i class="fa fa-check-circle-o text-primary"></i><span class="ms-1">Pending</span></td>
+                            <td class="text-end"><span class="fw-bolder">$24</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                            <td><img src="assets/img/Bitcoin.png" width="25"> BTC</td>
+                            
+                          </tr>
+                          <tr>
+                          
+                            <td>2321</td>
+                            <td>Upgrade</td>
+                            <td>1 Oct, 21</td>                                 
+                            <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1">Paid</span></td>
+                            <td class="text-end"><span class="fw-bolder">$24</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                            <td><img src="assets/img/Bitcoin.png" width="25"> BTC</td>
+                            
+                          </tr>
+                          <tr>
+                          
+                            <td>1212</td>
+                            <td>Upgrade</td>
+                            <td>1 Oct, 21</td>                                 
+                            <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1">Paid</span></td>
+                            <td class="text-end"><span class="fw-bolder">$24</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                            <td><img src="assets/img/Bitcoin.png" width="25"> BTC</td>
+                            
+                          </tr>
+                                
+                          
+                      </tbody>
+                    </table>
+                      
+                      </div>
+                        
+                    </div>
+                </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Global Exchange  Trading 2022</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

@@ -7,9 +7,9 @@ const Admin = require('../models/Admin');
 
 module.exports = {
     UsersAuth: async (passport)=>{
-        passport.use(new LocalStrategy({usernameField: 'email'},
+        passport.use('user_local', new LocalStrategy({usernameField: 'email'},
             (email, password, done)=>{
-                
+                console.log('user_local')
                 User.findOne({email:email}, async (err, user)=>{
                     if(!user){
                         
@@ -35,15 +35,28 @@ module.exports = {
             }
 
         ))
+        passport.serializeUser(function(user, done) {
+            
+            return done(null, user.id)
+          });
+          
+          passport.deserializeUser(async function(id, done) {
+            await User.findById(id, (err,user)=>{
+               
+                    return done(err, user)
+                
+                
+            })
+          });
     
     },
     AdminAuth: async (passport)=>{
-        passport.use(new LocalStrategy(
+        passport.use('admin_local', new LocalStrategy(
             (username, password, done)=>{
-                
+                console.log('Admin_local')
                 Admin.findOne({userName:username}, async (err, user)=>{
                     if(!user){
-                        
+                        req.flash('error_msg', 'You do not have an account')
                         return done(null, false, {message : 'You do not have an account'})
                     }
                     await bcrypt.compare(password, user.password, (err, isMatch)=>{
@@ -56,6 +69,7 @@ module.exports = {
                             return done(null, user)
 
                         }else{
+                            req.flash('error_msg', 'incorrect password')
                             return done(null, false, {message: 'incorrect password'})
                         }
                         
@@ -66,6 +80,19 @@ module.exports = {
             }
 
         ))
+        passport.serializeUser(function(user, done) {
+            
+            return done(null, user.id)
+          });
+          
+          passport.deserializeUser(async function(id, done) {
+            await Admin.findById(id, (err,user)=>{
+               
+                    return done(err, user)
+                
+                
+            })
+          });
     
     },
 }
