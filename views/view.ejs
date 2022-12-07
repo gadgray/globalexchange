@@ -1,0 +1,52 @@
+<!-- navbar -->
+<%- include('partials/admin/adminNav') %>
+
+<div id="layoutSidenav">
+    
+    <!-- sidenav -->
+    <%- include('partials/admin/adminsidenav') %>
+    <div id="layoutSidenav_content">
+      <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4 text-white">Transactions</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="/admindashboard" class="text-light text-decoration-none">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="/admindashboard/transactions" class="text-light text-decoration-none">Transactions</a></li>
+            </ol>
+          
+            <div class="card mb-4">
+                <div class="card-header">
+                    
+                    Transaction History
+                </div>
+                <div class="container mt-5 px-2">
+
+                    <div class="mb-2 d-flex justify-content-between align-items-center">
+                        
+                      
+                        
+                    </div>
+                    <div class="table-responsive">
+                        <img  src="/uploads/transactions/<%= typeof image != 'undefined' ? image : ''%>" alt="proof of payment">
+                 
+                  </div>
+                    
+                </div>
+            </div>
+    </main>
+
+   
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Global Exchange  Trading 2022</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

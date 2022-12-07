@@ -24,16 +24,19 @@ const userSchema = new mongoose.Schema({
     accountBalance:{
         type: String,
     },
+    totalBalance:{
+        type: String,
+    },
+
     miningBalance:{
         type: String,
     },
     plan:{
+       type: String,
+    }, 
+    profileImg:{
         type: String,
-    },
-
-    transations: [
-        {type: mongoose.Schema.Types.ObjectId, ref: 'Transaction'}
-    ],
+     }, 
     createdAt: {
         type: Date,
         default: Date.now()

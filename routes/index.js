@@ -10,7 +10,7 @@ const User = require('../models/User');
 const Admin = require('../models/Admin');
 const Contact = require('../models/Contact');
 // nodemail middleware
-const sendMail = require('../middleware/nodemailer');
+const {registerMail} = require('../middleware/nodemailer');
 
 // @pages rouets
 // home
@@ -74,12 +74,14 @@ router.get('/login', async (req,res)=>{
 
     res.render('login');
 })
-router.post('/login', passport.authenticate('user_local', {
+router.post('/login', passport.authenticate('user_local', 
+{
+    session: true,
     failureRedirect: '/login',
     failureFlash: true
 }), 
 (req,res)=>{
-
+    
     res.redirect('/dashboard')
 }
 )
@@ -105,15 +107,12 @@ router.get('/register', async (req,res)=>{
 })
 router.post('/register', async (req,res)=>{
     const {firstname, lastname, email, phone, countryCode, password, password2  } = req.body 
-    console.log(req.body)
-    if (!firstname || !lastname || !email || !phone || !countryCode || !password || !password2 ){
 
-        console.log ('fill in all fields')
+    if (!firstname || !lastname || !email || !phone || !countryCode || !password || !password2 ){
         req.flash('error_msg', 'fill in all fields');
         res.render('register', {user: req.body})
     }else{
         if(password != password2){
-            console.log ('password')
             req.flash('error_msg', 'passwords do not match');
             res.render('register', {user: req.body})
         }else{
@@ -125,17 +124,16 @@ router.post('/register', async (req,res)=>{
                 }
         
                 if(user){
-                    console.log ('fuser')
                     req.flash('error_msg', 'email aready used');
                     res.render('register', {user: req.body})
                 }else{
                     
-                const phoneNo = (countryCode, phone)=>{
-        
-                    return(countryCode+phone)
+                const phoneNo = ()=>{
+
+                    return(countryCode + phone)
                 }
         
-                 bcrypt.genSalt( 8, (err, salt)=>{
+                 bcrypt.genSalt( 8, (err, salt)=>{  
         
                     bcrypt.hash(password, salt, (err, hash)=>{
                         if(err){
@@ -152,8 +150,8 @@ router.post('/register', async (req,res)=>{
     
                             newUser.save(err=>{
                                 if(!err){
-                                    
-                                req.flash('success_msg', 'congratulation your registration was successful!')
+                                    registerMail(newUser.email, newUser.firstName);
+                                    req.flash('success_msg', 'congratulation your registration was successful!')
                                 res.redirect('/login');
                                 }else{
                                     req.flash('error_msg', 'error registering try again')

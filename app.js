@@ -18,6 +18,7 @@ const app = express();
 
 // connect database
 const connectDB = require('./config/bd');
+const { Strategy } = require('passport-local');
 connectDB();
 // middelwares
 app.use(bodyparser.urlencoded({extended:true}));
@@ -41,12 +42,16 @@ app.use(session({
 // require('./config/passport').AdminAuth(passport);
 // require('./config/passport').UsersAuth(passport);
 // passport
-require('./config/passport').AdminAuth();
-require('./config/passport').UsersAuth();
+// require('./config/passport').UsersAuth();
+// require('./config/passport').AdminAuth();
+
 
 // passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(Strategy, require('./config/passport').UsersAuth());
+passport.use(Strategy,require('./config/passport').AdminAuth());
 
 // connect flash
 app.use(flash());

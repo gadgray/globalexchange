@@ -1,5 +1,3 @@
-
-        
 <!-- navbar -->
 <%- include('partials/admin/nav') %>
 
@@ -8,158 +6,119 @@
     <!-- sidenav -->
     <%- include('partials/admin/sidenav') %>
             <div id="layoutSidenav_content">
-            <main>
-                <div class="container mt-5 px-5">
-
-                    <div class="mb-4">
-        
-                        <h2>Confirm order and pay</h2>
-                    <span>please make the payment, after that you can enjoy all the features and benefits.</span>
-                        
-                    </div>
-        
-                <div class="row">
-        
-                    <div class="col-md-8">
-                        
-        
-                        <div class="card p-3">
-        
-                            <h6 class="text-uppercase">Payment details</h6>
-                            <div class="inputbox mt-3"> <input type="text" name="name" class="form-control" required="required"> <span>Name on card</span> </div>
-        
-        
-                            <div class="row">
-        
-                                <div class="col-md-6">
-        
-                                    <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <i class="fa fa-credit-card"></i> <span>Card Number</span> 
-        
-        
-                                    </div>
-                                    
-        
-                                </div>
-        
-                                <div class="col-md-6">
-        
-                                     <div class="d-flex flex-row">
-        
-        
-                                         <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Expiry</span> </div>
-        
-                                      <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>CVV</span> </div>
-                                         
-        
-                                     </div>
-                                    
-        
-                                </div>
-                                
-        
-                            </div>
-        
-        
-        
-                            <div class="mt-4 mb-4">
-        
-                                <h6 class="text-uppercase">Billing Address</h6>
-        
-        
-                                <div class="row mt-3">
-        
-                                    <div class="col-md-6">
-        
-                                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Street Address</span> </div>
-                                        
-        
-                                    </div>
-        
-        
-                                     <div class="col-md-6">
-        
-                                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>City</span> </div>
-                                        
-        
-                                    </div>
-        
-        
-                                    
-        
-                                </div>
-        
-        
-                                <div class="row mt-2">
-        
-                                    <div class="col-md-6">
-        
-                                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>State/Province</span> </div>
-                                        
-        
-                                    </div>
-        
-        
-                                     <div class="col-md-6">
-        
-                                        <div class="inputbox mt-3 mr-2"> <input type="text" name="name" class="form-control" required="required"> <span>Zip code</span> </div>
-                                        
-        
-                                    </div>
-        
-        
-                                    
-        
-                                </div>
-        
-                            </div>
-        
+                <main>
+                    <div class="container mt-5 px-5">
+    
+                        <div class="mb-4">
+            
+                            <h2 class="text-white">Make a deposit</h2>
+                        <span class="text-white">please make your deposit and await approval in minutes.</span>
+                            
                         </div>
+            
+                        <div class="row">
+            
+                        <div class="col-md-8 mb-4">
+                            
+                            <div class="card p-3">
+                                <h6 class="text-uppercase"> details</h6>
+
+                                <%- include('partials/messages')%>
+                                <form action="/dashboard/deposit/gateway" method="post">
+                                        <label for="gateway">Choose Deposit Coin:</label>
+                                    <select onchange="submit()" class="form-control" required="required" name="Gateway" id="Gateway" >
+                                        <option value="<%=typeof Gateway !='undefined' ? Gateway: ''%>" >
+                                            <%=typeof Gateway !='undefined' ? Gateway: 'Select a gateway'%>
+                                        </option>
+                                        <option value="BTC" >BTC</option>
+                                        <option value="USDT">USDT</option>
+                                        <option value="ETH">ETH</option>
+                                        <option value="DOGE">DOGE</option>
+                                    </select>
+                                </form>
+                                <form action="/dashboard/deposit/networks" method="post">
+                                    <input type="hidden" name="Gateway" value="<%=typeof Gateway !='undefined' ? Gateway: ''%>%>">
+                                    <label  for="Network">Choose Network:</label>
+                                    <% if( typeof network != 'undefined'){ %>
+                                        <select class="form-control" onchange="submit()" required="required" name="Network" id="Network">
+                                        
+                            
+                                            <option value="<%= typeof Network != 'undefined'? Network : '' %>"><%= typeof Network != 'undefined'? Network: '' %></option>
+                                            <% if( network != ' '){ %>
+                                             <% network.forEach((network, i)=>{ %>
+                                                <option value="<%= network.name%>"><%= network.name%></option>
+                                            <% }) %>
+                                        </select>  
+                                </form>
+                                <form action="/dashboard/deposit" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="Id" value="<%=user._id%>">
+                                                <% network.forEach((network, i)=>{ %>
+                                                    <% if( typeof Network != 'undefined'){ %>
+                                                        <% if (network.name == Network) {%>
+                                                            <label  for="Network">Address:</label> 
+                                                            <div class="d-flex">
+                                                                 
+                                                            <input type="text" id="Address"  name="Address" value="<%= network.address%>" class="form-control" placeholder="Address">
+                                                            <p class="btn btn-light mx-2 py-2 border-rounded-md" style="width: 75px; font-size: 20px; height: 40px;" onclick="Copy()"><i class=" clip bi bi-clipboard"></i></p>
+                                                            </div>
+                                                            
+                                                        <% } %>
+                                                    <%}%>
         
-        
-                        <div class="mt-4 mb-4 d-flex justify-content-between">
-        
-        
-                                    <span>Previous step</span>
-        
-        
-                                    <button class="btn btn-success px-3">Pay $840</button>
-        
-        
-                                    
-        
-                                </div>
-        
-                    </div>
-        
-                    <div class="col-md-4">
-        
-                        <div class="card card-blue p-3 text-white mb-3">
-        
-                           <span>You have to pay</span>
-                            <div class="d-flex flex-row align-items-end mb-3">
-                                <h1 class="mb-0 yellow">$549</h1> <span>.99</span>
+                                                <% }) %>
+                                            <%}%>
+                                                <input type="hidden" name="GateWay" value="<%=typeof Gateway !='undefined' ? Gateway: ''%>">
+                                                <input type="hidden" name="Network" value="<%= typeof Network != 'undefined'? Network : '' %>">
+                                                <label  for="Network">Amount:</label>
+                                                <input type="text" name="Amount" class="form-control" placeholder="Amount" required>
+                                                <label  for="Network">Proof Of Payment:</label>
+                                                <input type="file" name="proofImg" class="form-control" placeholder="Proof of payment" required>
+                                                <div class="mt-4 mb-4 d-flex justify-content-between">
+                                                    <button class="btn btn-success px-3" type="submit">Deposit</button>
+                                                </div>
+
+
+                                </form>
+                                 
                             </div>
-        
-                            <span>Enjoy all the features and perk after you complete the payment</span>
-                            <a href="#" class="yellow decoration">Know all the features</a>
-        
-                            <div class="hightlight">
-        
-                                <span>100% Guaranteed support and update for the next 5 years.</span>
+
+                            
+                        <%}%>
+                            
+            
+                        </div>
+
+                   
+            
+                        <div class="col-sm-12 col-md-4 mt-4">
+            
+                            <div class="card card-blue p-3 text-white mb-3">
+                                <div class="d-flex flex-row align-items-end mb-3">
+                                    <h1 class="mb-0 yellow">Notice</h1> <span></span>
+                                </div>
+            
+                                <p style="font-size: 15px; color:black;" >Do not withdraw directly to a crowfund or ICO. We will not credit your account with tokens from that sale.</p>
+    
+                                <span>Enjoy all the features and perk after you complete the payment</span>
+                                <a href="#" class="yellow decoration">Know all the features</a>
+            
+                                <div class="hightlight">
+            
+                                    <span>All Deposits will be verified within 24hrs.</span>
+                                    
+            
+                                </div>
                                 
-        
                             </div>
                             
                         </div>
-                        
-                    </div>
-                    
-                </div>
-                  
-        
-              </div>
 
-          
+                    </div>
+                      
+                  </div>
+    
+                    
+                </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -172,7 +131,22 @@
                         </div>
                     </div>
                 </footer>
-            </main>
-        </div>
             </div>
         </div>
+<script>
+    function Copy(){
+
+        let text = document.querySelector('#Address');
+        let clip = document.querySelector('.clip');
+        text.select();
+        text.setSelectionRange(0,99999);
+
+        navigator.clipboard.writeText(text.value);
+        clip.classList.remove('bi-clipboard');
+        clip.classList.add('bi-clipboard-check');
+        clip.classList.add('text-success')
+        
+        
+    }
+    
+</script>

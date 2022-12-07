@@ -1,0 +1,77 @@
+<!-- navbar -->
+<%- include('partials/admin/nav') %>
+
+<div id="layoutSidenav">
+    
+    <!-- sidenav -->
+    <%- include('partials/admin/sidenav') %>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container mt-5 px-5">
+    
+                        
+            
+                        <div class="row">
+            
+                        <div class="col-md-8 ">
+                            
+                            <div class="card p-3">
+                                <img src="<%= typeof user.profileImg != 'undefined' ? '/uploads/profileImg/' + user.profileImg : '/assets/img/default-avatar.png'%>" alt="Avatar" class="avatar">
+
+                                <div class="d-flex justify-content-around mt-5">
+                                    <form action="/dashboard/upload" method="post" enctype="multipart/form-data">
+                                        <input hidden type="text" name="id" value="<%= typeof user._id != 'undefined'? user._id : '' %>">
+                                        <input type="file" name="profileImg">
+                                        <button class="btn btn-dark px-3">Update</button>
+                                    </form>
+                                </div>
+                                
+                                <form class="mt-4" action="/dashboard/edit" method="post">
+                                    <input type="hidden" name="id" value="<%= typeof user._id != 'undefined'? user._id : '' %>">
+                                <label  for="firstName">First Name:</label>
+                                <input disabled type="text" name="firstName" class="form-control" value="<%= typeof user.firstName != 'undefined'? user.firstName : '' %>" >
+
+                                <label  for="lastName">Last Name:</label>
+                                <input disabled type="text" name="lastName" class="form-control" value="<%= typeof user.lastName != 'undefined'? user.lastName : '' %>">
+
+                                <label for="email">Email:</label>
+                                <input disabled type="text" name="email" class="form-control" value="<%= typeof user.email != 'undefined'? user.email : '' %>">
+
+                                <label for="phoneNo">Phone Number:</label>
+                                <input type="tel" name="phoneNo" class="form-control" value="<%= typeof user.phoneNo != 'undefined'? user.phoneNo : '' %>">
+
+                                <label for="Network">Plan:</label>
+                                <input disabled type="text" name="plan" class="form-control" value="<%= typeof user.plan != 'undefined'? user.plan : '' %>">
+
+                                <div class="mt-4 mb-4 d-flex justify-content-between">
+                                    <button class="btn btn-dark px-3">Update</button>
+                                </div>
+                                </form>
+
+                            </div>
+            
+                            
+            
+                        </div>
+            
+
+                    </div>
+                      
+                  </div>
+    
+                    <footer class="py-4 bg-light mt-auto">
+                        <div class="container-fluid px-4">
+                            <div class="d-flex align-items-center justify-content-between small">
+                                <div class="text-muted">Copyright &copy; Global Exchange  Trading 2022</div>
+                                <div>
+                                    <a href="#">Privacy Policy</a>
+                                    &middot;
+                                    <a href="#">Terms &amp; Conditions</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </main>
+        </div>
+            </div>
+        </div>

@@ -1,0 +1,122 @@
+<!-- navbar -->
+<%- include('partials/admin/nav') %>
+
+<div id="layoutSidenav">
+    
+    <!-- sidenav -->
+    <%- include('partials/admin/sidenav') %>
+        <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4 text-white">Transactions</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="/dashboard" class="text-light text-decoration-none">Dashboard</a></li>
+                    <li class="breadcrumb-item active"><a href="/dashboard/transactionslog" class="text-light text-decoration-none">Transactions</a></li>
+                </ol>
+              
+                <div class="card mb-4">
+                    <div class="card-header">
+                        
+                        Transaction History
+                    </div>
+                    <div class="container mt-5 px-2">
+
+                        <div class="mb-2 d-flex justify-content-between align-items-center">
+                            
+                          
+                            
+                        </div>
+                        <div class="table-responsive">
+                        <table class="table table-responsive table-borderless">
+                            
+                          <thead>
+                            <tr class="bg-light">
+                              <th scope="col" width="5">S/N</th>
+                              <th scope="col" width="10%">Trans ID</th>
+                              <th scope="col" width="20%">Transaction Type</th>
+                              
+                              <th scope="col" width="20%">Status</th>
+                              <th scope="col" class="" width="20%">Amount</th>
+                              <th scope="col" width="20%">Gateway</th>
+
+                              <th scope="col" width="20%">Address</th>
+
+                              <th scope="col" width="20%">Network</th>
+
+                              <th scope="col" width="20%">Date</th>
+                            </tr>
+                          </thead>
+                      <tbody>
+                        <% if (transactions != ''){%>
+
+                            <% transactions.forEach((transaction, i)=>{ %>
+                                <tr>
+                                    <td><%= i + 1%></td>
+                                    <td><%= typeof transaction.transactionID != 'undefined' ? transaction.transactionID : ''%></td>
+                                    <td><%= typeof transaction.type != 'undefined' ? transaction.type : ''%></td>
+                                                                     
+                                    <% if (transaction.status === 'pending'){%>                        
+                                        <td><i class="fa fa-check-circle-o text-warning"></i><span class="ms-1"><%= typeof transaction.status != 'undefined' ? transaction.status: ''%></span></td>
+                                      <%}%>
+                                      <% if (transaction.status === 'success'){%>                        
+                                        <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1"><%= typeof transaction.status != 'undefined' ? transaction.status: ''%></span></td>
+                                      <%}%>
+                                      <% if (transaction.status === 'failed'){%>                        
+                                        <td><i class="fa fa-check-circle-o text-danger"></i><span class="ms-1"><%= typeof transaction.status != 'undefined' ? transaction.status: ''%></span></td>
+                                      <%}%>
+                                    <td class="text-center"><span class="fw-bolder">$<%= typeof transaction.amount != 'undefined' ? transaction.amount: ''%></span> <i class="fa fa-ellipsis-h  ms-2"></i></td>   
+                                    <td><img src="/assets/img/Bitcoin.png" width="25"><%= typeof transaction.gateway != 'undefined' ? transaction.gateway: ''%></td>    
+                                    <td><%= typeof transaction.recieverAddress != 'undefined' ? transaction.recieverAddress: ''%></td>
+                                    <td><%= typeof transaction.network != 'undefined' ? transaction.network: ''%></td>        
+                                    <td><%= typeof transaction.createdAt != 'undefined' ? formatDate(transaction.createdAt, 'yyy_MMM_Do  HH:mm:ss'): ''%></td>           
+                                    
+                                    
+                                  </tr>
+                            <%})%>
+                        
+                        <%}%>
+                        <!-- <tr>
+                          
+                            <td>1212</td>
+                            <td>Upgrade</td>
+                            <td>3 Feb, 21</td>                                 
+                            <td><i class="fa fa-check-circle-o text-success"></i><span class="ms-1">Paid</span></td>
+                            <td class="text-end"><span class="fw-bolder">$45</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                            <td><img src="assets/img/Ethereum.png" width="25"> ETH</td>
+                            
+                          </tr>
+                          <tr>
+                          
+                            <td>3231</td>
+                            <td>Withdraw Funds</td>
+                            <td>1 Oct, 21</td>                                 
+                            <td><i class="fa fa-check-circle-o text-danger"></i><span class="ms-1">failed</span></td>
+                            <td class="text-end"><span class="fw-bolder">$25</span> <i class="fa fa-ellipsis-h  ms-2"></i></td>                       
+                            <td><img src="assets/img/Dogecoin.png" width="25"> DOGE</td>
+                            
+                          </tr> -->
+                          
+                                
+                          
+                      </tbody>
+                    </table>
+                      
+                      </div>
+                        
+                    </div>
+                </div>
+        </main>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Global Exchange  Trading 2022</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
