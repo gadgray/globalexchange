@@ -2,8 +2,12 @@
 	<!-- Basic Page Needs -->
     <meta charset="utf-8">
     <title>Global Exchange Trading</title>
-
+	<!-- multilanguage -->
 	<script src="js/jquery-lang.js" charset="utf-8" type="text/javascript"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js" 
+	integrity="sha256-0H3Nuz3aug3afVbUlsu12Puxva3CP4EhJtPExqs54Vg=" crossorigin="anonymous"></script>
+
+	<!-- end -->
 	<!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link type="image/x-icon" href="document_files/fav-icon.png" rel="icon">
@@ -27,10 +31,10 @@
 	// Create language switcher instance
 	var lang = new Lang();
 
-	lang.dynamic()
+	lang.dynamic('es', )
 	
 	lang.init({
-		defaultLang: 'en',
+		defaultLang: 'es',
 
 		currentLang: 'en',
 	
