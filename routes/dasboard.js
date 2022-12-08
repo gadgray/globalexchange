@@ -18,7 +18,15 @@ const Transaction = require('../models/Transactions');
 // dashboard
 router.get('/', ensureUserAuth, (req, res)=>{
 
-    res.render('dashboard', {user: req.user, layout: 'LayoutC'});
+    Transaction.find({user_Id: req.user._id}, (err, transactions)=>{
+
+        if(!err){
+            
+            res.render('dashboard', {user: req.user, transactions, formatDate, layout: 'LayoutC'});
+        }
+
+    })
+
 
 })
 
@@ -195,7 +203,7 @@ router.post('/withdraw/request', ensureUserAuth,(req,res)=>{
 
     try {
         transaction.save((err)=>{
-            withdrawalReqMail(req.user.email, transaction.amount, transaction.recieverAddress)
+            withdrawalReqMail(req.user.email, transaction.amount, req.user.firstName, transaction.recieverAddress)
             req.flash('success_msg', 'withdrawal request sent successfully');
             res.redirect('/dashboard/transactionslog')
         })

@@ -7,17 +7,49 @@
     <%- include('partials/admin/adminsidenav') %>
     <div id="layoutSidenav_content">
       <main>
-        <div class="container-fluid px-4">
-            <h1 class="mt-4 text-white">Transactions</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="/admindashboard" class="text-light text-decoration-none">Dashboard</a></li>
-                <li class="breadcrumb-item active"><a href="/admindashboard/transactions" class="text-light text-decoration-none">Transactions</a></li>
-            </ol>
-          
+        <div class="container mt-5 px-5" >
+
+            
+
+            <div class="row">
+
+            <div class="col-md-12">
+                
+
+                
+                    <div class="card p-3">
+                        
+
+                        <h6 class="text-uppercase">Add Token:</h6>
+                        
+                        <form action="/admindashboard/addcoin" method="post">
+                                        <label  for="Network">Coin Name:</label>
+                                        <input type="text" name="Name" class="form-control" placeholder="Coin" required>
+                                        <label  for="Network">Networks:</label>
+                                        <input type="text" name="Network" class="form-control" placeholder="Network" required>
+                                        <label  for="Network">Address:</label>
+                                        <input type="text" name="Address" class="form-control" placeholder="Address" required>
+                                        <div class="mt-4 mb-4 d-flex justify-content-between">
+                                            <button class="btn btn-success px-3" type="submit">Deposit</button>
+                                        </div>
+
+
+                        </form>
+                       
+                    </div>
+              
+
+                
+                
+            
+            </div>
+
+            
+        </div>
+            <div class="container-fluid px-4 mt-5">
             <div class="card mb-4">
                 <div class="card-header">
-                    
-                    Transaction History
+                    <h2>Coin </h2>                   
                 </div>
                 <div class="container mt-5 px-2">
 
@@ -27,15 +59,65 @@
                         
                     </div>
                     <div class="table-responsive">
-                        <img  src="/uploads/transactions/<%= typeof image != 'undefined' ? image : ''%>" alt="proof of payment">
+                    <table class="table table-responsive table-borderless">
+                        
+                      <thead>
+                        <tr class="bg-light">
+                          <th scope="col" width="5%">S/N</th>
+                          <th scope="col">Token Name</th>
+                          <th scope="col-group" width=" 50%" colspan="2" class="text-center">Networks
+                            <table class="bg-light">
+                                <tr>
+                                    <th scope="col" width="25%">Networks Name </th>
+                                    <th scope="col" width="25%">Networks Address</th>
+                                </tr>
+                            </table>
+                            
+                          </th>
+                
+                          <th scope="col" width="20%">Delete</th>
+
+                        </tr>
+                      </thead>
+                    <tbody>
+                        <% if(coins != ' '){%>
+                            <% coins.forEach((coin, i)=>{ %>
+                                <tr>
+                                   <td> <%= i + 1%></td>
+                                   <td> <%= coin.tokenName%></td>
+                                
+                                    <% coin.networks.forEach((network, i)=>{ %>
+                                        <table>
+                                        <tr>
+                                            
+                                            <td><%= network.name%></td>
+                                            <td><%= network.address%></td>
+                                                
+                                        </tr>
+                                    </table>
+                                    <%})%>
+                            
+                                </tr>
+                            <%})%>
+
+                        <%}%>
+                        
+                    </tbody>
+                </table>
                  
                   </div>
                     
                 </div>
             </div>
+
+            </div>
+
+        </div>
+
+        
     </main>
 
-   
+<!--    
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">
@@ -47,6 +129,6 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> -->
     </div>
 </div>

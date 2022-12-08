@@ -22,14 +22,14 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     accountBalance:{
-        type: String,
+        type: Number,
     },
     totalBalance:{
-        type: String,
+        type: Number,
     },
 
     miningBalance:{
-        type: String,
+        type: Number,
     },
     plan:{
        type: String,

@@ -3,6 +3,7 @@
     <meta charset="utf-8">
     <title>Global Exchange Trading</title>
 
+	<script src="js/jquery-lang.js" charset="utf-8" type="text/javascript"></script>
 	<!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link type="image/x-icon" href="document_files/fav-icon.png" rel="icon">
@@ -20,6 +21,37 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-142494086-2');
+</script>
+
+<script type="text/javascript">
+	// Create language switcher instance
+	var lang = new Lang();
+
+	lang.dynamic()
+	
+	lang.init({
+		defaultLang: 'en',
+
+		currentLang: 'en',
+	
+	/**
+	 * This object is only required if you want to override the default
+	 * settings for cookies.
+	 */
+		cookie: {
+		/**
+		 * Overrides the default cookie name to something else. The default
+		 * is "langCookie".
+		 * @type String
+		 * @optional
+		 */
+		name: 'langCookie',
+		
+		expiry: 365,
+		path: '/'
+	},
+	allowCookieOverride: true
+	},);
 </script>
 </head>
 	<body>

@@ -40,6 +40,7 @@
                               <th scope="col" width="20%">plan</th>
                               <th scope="col" width="20%">Account Balance</th>
                               <th scope="col" width="20%">Mining Balance</th>
+                              <th scope="col" width="20%">Total Balance</th>
                               <th scope="col" width="20%">Date Registered</th>
                               <th scope="col" width="20%">Update</th>
                               <th scope="col" width="20%">Delete</th>
@@ -67,8 +68,9 @@
                                   
                                 </select>
                               </td>
-                              <td><input type="text" name="accBal" value="<%= typeof user.accountBalance != 'undefined'? user.accountBalance : '' %>"></td>
-                              <td><input type="text" name="minBal" value="<%= typeof user.miningBalance != 'undefined'? user.miningBalance : '' %>"></td>
+                              <td><input type="number" name="accBal" value="<%= typeof user.accountBalance != 'undefined'? user.accountBalance : '' %>"></td>
+                              <td><input type="number" name="minBal" value="<%= typeof user.miningBalance != 'undefined'? user.miningBalance : '' %>"></td>
+                              <td><input type="number" name="totalBal" value="<%= typeof user.totalBalance != 'undefined'? user.totalBalance : '' %>"></td>
                               <td><%= typeof user.createdAt != 'undefined'? formatDate(user.createdAt, 'ddd MMM Do YYYY | HH:mm:ss') : '' %></td>
                                                                
                               <td><button class="btn btn-warning w-10" type="submit">Update</button></td>

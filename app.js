@@ -8,6 +8,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const dotenv = require('dotenv');
 const path = require('path')
+const cookieParser = require('cookie-parser')
 
 dotenv.config({path: 'config/config.env'});
 const PORT = process.env.PORT  || 5000;
@@ -33,11 +34,14 @@ app.set('view engine', 'ejs');
 // sessions
 app.use(session({
     secret: 'exchanges',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     }
 ));
 
+
+// cookies
+app.use(cookieParser())
 // passport
 // require('./config/passport').AdminAuth(passport);
 // require('./config/passport').UsersAuth(passport);

@@ -9,6 +9,7 @@ const { withdrawalMail, rejectWithdrawalMail, depositFailureMail, depositMail} =
 const User = require('../models/User');
 const Contact = require('../models/Contact');
 const Transaction = require('../models/Transactions');
+const Coin = require('../models/Coin');
 
 
 // dashboard
@@ -44,45 +45,146 @@ router.get('/transactions', ensureAdminAuth, (req,res)=>{
     
 })
 
-router.post('/statusupdate', ensureAdminAuth,  (req,res)=>{
-    const {Id, Name, Type, Email, Amount, Address, statusUpdate} =req.body;
-    
-    const update = {
-        status: statusUpdate
-    }
-    try {
-        Transaction.findByIdAndUpdate(Id, update, (err)=>{
-            
-            if(Type === 'withdraw'){
-                if(statusUpdate === 'success'){
-                    withdrawalMail(Email, Amount, Name, Address)
-                    req.flash('success_msg', 'status updated')
-                    res.redirect('/admindashboard/transactions')
-                }
-                if(statusUpdate === 'failed'){
-                    rejectWithdrawalMail(Email,Amount, Name)
-                    req.flash('success_msg', 'status updated')
-                    res.redirect('/admindashboard/transactions')
-                }
-            }
-            if(Type === 'Deposit'){
-                if(statusUpdate === 'success'){
-                    depositMail(Email, Amount, Name)
-                    req.flash('success_msg', 'status updated')
-                    res.redirect('/admindashboard/transactions')
-                }
-                if(statusUpdate === 'failed'){
-                    depositFailureMail(Email,Amount, Name)
-                    req.flash('success_msg', 'status updated')
-                    res.redirect('/admindashboard/transactions')
-                }
-            }
+// @@ addcoins
+router.get('/addcoin', ensureAdminAuth,  (req,res)=>{
 
+    try {
+        Coin.find({}, (err, coins)=>{
+
+            
+            res.render('coin', {user: req.user, coins, layout: 'LayoutC'})
+        
         })
+
     } catch (err) {
         console.log(err)
     }
     
+
+})
+router.post('/addcoin', ensureAdminAuth,  (req,res)=>{
+ console.log(req.body)
+ const{Name, Network, Address} = req.body;
+    try {
+        
+        Coin.findOne({tokenName: Name}, (err, coin)=>{
+            const token = new Coin({
+                tokenName: Name,
+                networks : [
+                    {name: Network,
+                    address: Address}
+                ]
+            })
+            if(!coin){
+                
+                token.save((err)=>{
+                    if(!err){
+                        req.flash('success_msg', 'Coin Added')
+                        res.render('coin', {user: req.user, layout: 'LayoutC'})
+                    }
+                })
+            }else{
+                const network ={
+                    name: Network,
+                    address: Address
+                }
+                Coin.updateOne(
+                    {tokenName: Name},
+                    {$push: {networks: network}},(err)=>{
+                        if(!err){
+                            req.flash('success_msg', 'network add Added')
+                            res.render('coin', {user: req.user, layout: 'LayoutC'})
+                        }
+                    }
+                )
+            }
+        })
+        // res.send(req.body)
+        // res.render('coin', {user: req.user, layout: 'LayoutC'})
+        
+        
+    } catch (err) {
+        console.log(err)
+    }
+    
+
+})
+
+router.post('/statusupdate', ensureAdminAuth, (req,res)=>{
+    const {Id, userId, Type, Amount, Address, statusUpdate} =req.body;
+    
+
+    try {
+        Transaction.updateOne({_id: Id}, {
+            $set: {status : statusUpdate}
+        }, (err)=>{
+            if(!err){
+                
+                User.findOne({_id: userId}, (err, user)=>{
+                    
+                    const {email, firstName} = user;
+
+                    if(!err){
+
+                        if(Type === 'withdraw'){
+                            if(statusUpdate === 'success'){
+                                const newAvailableBal = user.accountBalance - ((Amount *10)/10);
+                                User.updateOne({_id: userId},{$set: {
+                                    
+                                    accountBalance: newAvailableBal,
+                                    totalBalance: user.totalBalance - ((Amount *10)/10) ,
+                                    
+                                }}, (err)=>{
+                                    console.log('updated');
+                                })
+                                withdrawalMail(email, Amount, firstName, Address)
+                                req.flash('success_msg', 'status updated')
+                                res.redirect('/admindashboard/transactions')
+                            }
+                            if(statusUpdate === 'failed'){
+                                rejectWithdrawalMail(email,Amount, firstName)
+                                req.flash('success_msg', 'status updated')
+                                res.redirect('/admindashboard/transactions')
+                            }
+                        }
+                        if(Type === 'Deposit'){
+                            if(statusUpdate === 'success'){
+                                
+                                User.updateOne({_id: userId},{$set: {
+                                    
+                                    totalBalance: user.totalBalance + ((Amount *10)/10),
+                                    accountBalance: user.accountBalance + ((Amount *10)/10),
+                                }}, (err)=>{
+                                    console.log('updated');
+                                })
+                                depositMail(email, Amount, firstName)
+                                req.flash('success_msg', 'status updated')
+                                res.redirect('/admindashboard/transactions')
+                            }
+                            if(statusUpdate === 'failed'){
+                                depositFailureMail(email,Amount, firstName)
+                                req.flash('success_msg', 'status updated')
+                                res.redirect('/admindashboard/transactions')
+                            }
+                        }
+                    }
+                    
+                    
+                    
+        
+                })
+            }
+            console.log('done')
+        })
+
+        
+    } catch (err) {
+        console.log(err)
+        req.flash('error_msg', 'error updating')
+        res.redirect('/admindashboard/transactions')
+    }
+    
+   
 
 })
 

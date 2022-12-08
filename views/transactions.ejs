@@ -67,10 +67,9 @@
                                 <td>
                                   <form action="/admindashboard/statusupdate" method="post">
                                     <input type="hidden" name="Id" value="<%= typeof transaction._id != 'undefined' ? transaction._id : ''%>">
+                                    <input type="hidden" name="userId" value="<%= typeof transaction.user_Id != 'undefined' ? transaction.user_Id : ''%>">
                                     <input type="hidden" name="Address" value="<%= typeof transaction.recieverAddress != 'undefined' ? transaction.recieverAddress : ''%>">
                                     <input type="hidden" name="Amount" value="<%= typeof transaction.amount != 'undefined' ? transaction.amount : ''%>">
-                                    <input type="hidden" name="Name" value="<%= typeof user.name != 'undefined' ? user.name : ''%>">
-                                    <input type="hidden" name="Email" value="<%= typeof user.email != 'undefined' ? user.email : ''%>">
                                     <input type="hidden" name="Type" value="<%= typeof transaction.type != 'undefined' ? transaction.type : ''%>">
                                     <select name="statusUpdate" onchange="submit()">
                                       <option value="">Update Status</option>
@@ -110,6 +109,8 @@
                     
                 </div>
             </div>
+
+          </div>
     </main>
 
     <main>
@@ -121,12 +122,12 @@
               </div>
               <div class="container mt-5 px-2">
 
-                  <div class="mb-2 d-flex justify-content-between align-items-center">
+                <div class="mb-2 d-flex justify-content-between align-items-center">
                       
                     
                       
-                  </div>
-                  <div class="table-responsive">
+                </div>
+                <div class="table-responsive">
                   <table class="table table-responsive table-borderless">
                       
                     <thead>
@@ -149,8 +150,8 @@
                         <th scope="col" width="20%">Status</th>
                       </tr>
                     </thead>
-                <tbody>
-                  <% if (transactions != ''){%>
+                    <tbody>
+                    <% if (transactions != ''){%>
 
                       <% transactions.forEach((transaction, i)=>{ %>
                         <% if (transaction.type === 'withdraw'){%>
@@ -168,10 +169,10 @@
                               <td>
                                 <form action="/admindashboard/statusupdate" method="post">
                                   <input type="hidden" name="Id" value="<%= typeof transaction._id != 'undefined' ? transaction._id : ''%>">
+                                  <input type="hidden" name="userId" value="<%= typeof transaction.user_Id != 'undefined' ? transaction.user_Id : ''%>">
                                   <input type="hidden" name="Address" value="<%= typeof transaction.recieverAddress != 'undefined' ? transaction.recieverAddress : ''%>">
                                   <input type="hidden" name="Amount" value="<%= typeof transaction.amount != 'undefined' ? transaction.amount : ''%>">
-                                  <input type="hidden" name="Name" value="<%= typeof user.name != 'undefined' ? user.name : ''%>">
-                                  <input type="hidden" name="Email" value="<%= typeof user.email != 'undefined' ? user.email : ''%>">
+                            
                                   <input type="hidden" name="Type" value="<%= typeof transaction.type != 'undefined' ? transaction.type : ''%>">
                                   <select name="statusUpdate" onchange="submit()">
                                     <option value="">Update Status</option>
@@ -197,17 +198,17 @@
                         <%}%>
                       <%})%>
                   
-                  <%}%>
+                    <%}%>
                         
                     
                 </tbody>
               </table>
                 
-                </div>
+            </div>
                   
-              </div>
           </div>
-  </main>
+      </div>
+    </main>
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
                 <div class="d-flex align-items-center justify-content-between small">

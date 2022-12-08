@@ -10,7 +10,7 @@ const User = require('../models/User');
 const Admin = require('../models/Admin');
 const Contact = require('../models/Contact');
 // nodemail middleware
-const {registerMail} = require('../middleware/nodemailer');
+const {registerMail,  passwordChangeMail} = require('../middleware/nodemailer');
 
 // @pages rouets
 // home
@@ -257,6 +257,7 @@ router.post('/updateuser', (req, res)=>{
         plan: req.body.plan,
         accountBalance: req.body.accBal,
         miningBalance: req.body.minBal,
+        totalBalance: req.body.totalBal,
 
     }
     console.log(req.body)
@@ -300,6 +301,87 @@ router.get('/deletecontact/:id', (req, res)=>{
         }
         
     })
+})
+
+router.get('/passrecovery', (req, res)=>{
+
+    res.render('confirm');
+
+})
+
+router.post('/confirmemail', (req, res)=>{
+
+    const {email} = req.body;
+    try {
+        User.findOne({email: email}, (err, user)=>{
+            if(!user){
+    
+                req.flash('error_msg', 'Invalid email')
+                res.redirect('/passrecovery');
+            }else{
+                const {email, firstName, _id} = user;
+                passwordChangeMail(email, _id, firstName,)
+                req.flash('success_msg', 'An email has been sent to you with steps on how to change your password')
+                res.redirect('/passrecovery');
+            }
+        })
+        
+    } catch (err) {
+        console.log(err)
+        req.flash('error_msg', 'Try again later')
+                res.redirect('/passrecovery');
+    }
+    
+    
+})
+
+router.get('/passchange/:id', (req,res)=>{
+    
+    console.log(req.params.id)
+    User.findOne({_id: req.params.id}, (err, user)=>{
+
+        if(!user){
+            res.redirect('/')
+        }else{
+            res.render('password', {id: req.params.id})
+        }
+    })
+
+})
+
+router.post('/password', (req,res)=>{
+
+    const {id, password, password2} = req.body;
+    
+    console.log(req.body)
+    if(password != password2){
+        req.flash('error_msg', 'passwords do not match')
+        res.redirect(`/passchange/${id}`)
+    }else{
+
+        bcrypt.genSalt(8, (err, salt)=>{
+            if(!err){
+                console.log(salt)
+                bcrypt.hash(password, salt, (err, hash)=>{
+                    console.log(hash)
+                    User.updateOne({_id: id}, {
+                        $set: {password: hash}
+
+                        }, (err)=>{
+
+                            if(!err){
+                                req.flash('success_msg', 'login')
+                                res.redirect('/login');
+                            }
+                        }
+                    )
+
+                })
+            }
+        })
+            
+        
+    }
 })
 
 

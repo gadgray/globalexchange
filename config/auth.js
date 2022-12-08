@@ -4,14 +4,14 @@ module.exports = {
         if(req.isAuthenticated()){
             return next();
         }
-        req.flash('error_msg', 'login to get access');
+        req.flash('error_msg', 'Session expired');
         res.redirect('/adminlogin')
     },
     ensureUserAuth: function (req,res,next){
         if(req.isAuthenticated()){
             return next()
         }
-        req.flash('error_msg', 'unauthorized access login');
+        req.flash('error_msg', 'Session expired');
         res.redirect('/login')
     }
 
