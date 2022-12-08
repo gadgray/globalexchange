@@ -260,7 +260,7 @@ router.post("/upload", ensureUserAuth, (req, res)=>{
     let forms = new formidiable.IncomingForm()
     forms.parse(req, (err, fields, files)=>{
         let oldpath = files.profileImg.filepath;
-        let newpath =  path.join(__dirname + '//..//public//uploads//profileImg', files.profileImg.originalFilename);
+        let newpath =  path.join(__dirname + '//..//public//uploads//profileimages', files.profileImg.originalFilename);
         try {
             fs.rename(oldpath, newpath, ()=>{
 

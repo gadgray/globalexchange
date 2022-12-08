@@ -16,7 +16,7 @@
                         <div class="col-md-8 ">
                             
                             <div class="card p-3">
-                                <img src="<%= typeof user.profileImg != 'undefined' ? '/uploads/profileImg/' + user.profileImg : '/assets/img/default-avatar.png'%>" alt="Avatar" class="avatar">
+                                <img src="<%= typeof user.profileImg != 'undefined' ? '/uploads/profileimages/' + user.profileImg : '/assets/img/default-avatar.png'%>" alt="Avatar" class="avatar">
 
                                 <div class="d-flex justify-content-around mt-5">
                                     <form action="/dashboard/upload" method="post" enctype="multipart/form-data">
