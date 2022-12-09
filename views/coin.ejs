@@ -11,9 +11,9 @@
 
             
 
-            <div class="row">
+            <div class="container mt-5 px-5">
 
-            <div class="col-md-12">
+                <div class="col-md-12">
                 
 
                 
@@ -42,92 +42,58 @@
                 
                 
             
-            </div>
+                </div>
 
             
-        </div>
+            </div>
             <div class="container-fluid px-4 mt-5">
+                <% if(coins != ' '){%>
+                    <% coins.forEach((coin, i)=>{ %>
             <div class="card mb-4">
                 <div class="card-header">
-                    <h2>Coin </h2>                   
+                    <h2><%=coin.tokenName %></h2>                   
                 </div>
                 <div class="container mt-5 px-2">
 
-                    <div class="mb-2 d-flex justify-content-between align-items-center">
-                        
-                      
-                        
-                    </div>
                     <div class="table-responsive">
                     <table class="table table-responsive table-borderless">
                         
                       <thead>
                         <tr class="bg-light">
-                          <th scope="col" width="5%">S/N</th>
-                          <th scope="col">Token Name</th>
-                          <th scope="col-group" width=" 50%" colspan="2" class="text-center">Networks
-                            <table class="bg-light">
-                                <tr>
-                                    <th scope="col" width="25%">Networks Name </th>
-                                    <th scope="col" width="25%">Networks Address</th>
-                                </tr>
-                            </table>
-                            
-                          </th>
-                
-                          <th scope="col" width="20%">Delete</th>
+                            <th scope="col" width="5%">S/N</th>
+                            <th scope="col" width="25%">Networks Name </th>
+                            <th scope="col" width="25%">Networks Address</th>
+                            <th scope="col" width="20%">Delete</th>
 
                         </tr>
                       </thead>
-                    <tbody>
-                        <% if(coins != ' '){%>
-                            <% coins.forEach((coin, i)=>{ %>
-                                <tr>
-                                   <td> <%= i + 1%></td>
-                                   <td> <%= coin.tokenName%></td>
-                                
-                                    <% coin.networks.forEach((network, i)=>{ %>
-                                        <table>
-                                        <tr>   
-                                            <td><%= network.name%></td>
-                                            <td><%= network.address%></td>
-                                                
-                                        </tr>
-                                    </table>
-                                    <%})%>
-                            
-                                </tr>
+                        <tbody>
+                            <% coin.networks.forEach((network, i)=>{ %>
+                            <tr>
+                                <td> <%= i + 1%></td>
+                                <td><%= network.name%></td>
+                                <td><%= network.address%></td>
+                                <td><a href="/deletenetwork/<%=coin.tokenName%>/<%= network.name%>" class="btn btn-danger">Delete</a></td>
+                            </tr>
                             <%})%>
-
-                        <%}%>
-                        
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
                  
                   </div>
                     
                 </div>
             </div>
+            <%})%>
+
+            <%}%>
 
             </div>
+            
 
         </div>
 
         
     </main>
 
-<!--    
-        <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid px-4">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Global Exchange  Trading 2022</div>
-                    <div>
-                        <a href="#">Privacy Policy</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer> -->
     </div>
 </div>

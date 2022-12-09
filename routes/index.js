@@ -11,6 +11,7 @@ const Admin = require('../models/Admin');
 const Contact = require('../models/Contact');
 // nodemail middleware
 const {registerMail,  passwordChangeMail} = require('../middleware/nodemailer');
+const Coin = require('../models/Coin');
 
 // @pages rouets
 // home
@@ -298,6 +299,22 @@ router.get('/deletecontact/:id', (req, res)=>{
         }else{
             req.flash('error_msg', 'Error Deleting');
             res.redirect('/admindashboard/contacts');
+        }
+        
+    })
+})
+router.get('/deletenetwork/:gateway/:network', (req, res)=>{
+    console.log(req.params)
+    Coin.updateOne({tokenName: req.params.gateway},{
+        $pull: {networks : {_id: req.params.network}}
+    }, err=>{
+
+        if(!err){
+            req.flash('success_msg', 'Deleted');
+            res.redirect('/admindashboard/addcoin');
+        }else{
+            req.flash('error_msg', 'Error Deleting');
+            res.redirect('/admindashboard/addcoin');
         }
         
     })

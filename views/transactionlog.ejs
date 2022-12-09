@@ -65,7 +65,22 @@
                                         <td><i class="fa fa-check-circle-o text-danger"></i><span class="ms-1"><%= typeof transaction.status != 'undefined' ? transaction.status: ''%></span></td>
                                       <%}%>
                                     <td class="text-center"><span class="fw-bolder">$<%= typeof transaction.amount != 'undefined' ? transaction.amount: ''%></span> <i class="fa fa-ellipsis-h  ms-2"></i></td>   
-                                    <td><img src="/assets/img/Bitcoin.png" width="25"><%= typeof transaction.gateway != 'undefined' ? transaction.gateway: ''%></td>    
+                                    <% if(transaction.gateway == 'BTC'){%>
+                                      <td><img src="/assets/img/Bitcoin.png" width="25"><%= typeof transaction.gateway != 'undefined' ? transaction.gateway: ''%></td>  
+      
+                                      <%}%>  
+                                      <% if(transaction.gateway == 'USDT'){%>
+                                        <td><img src="/assets/img/USDT.jpeg" width="25"><%= typeof transaction.gateway != 'undefined' ? transaction.gateway: ''%></td>  
+        
+                                        <%}%> 
+                                        <% if(transaction.gateway == 'DOGE'){%>
+                                          <td><img src="/assets/img/DOGEcoin.png" width="25"><%= typeof transaction.gateway != 'undefined' ? transaction.gateway: ''%></td>  
+          
+                                          <%}%> 
+                                          <% if(transaction.gateway == 'ETH'){%>
+                                            <td><img src="/assets/img/Ethereum.png" width="25"><%= typeof transaction.gateway != 'undefined' ? transaction.gateway: ''%></td>  
+            
+                                            <%}%>     
                                     <td><%= typeof transaction.recieverAddress != 'undefined' ? transaction.recieverAddress: ''%></td>
                                     <td><%= typeof transaction.network != 'undefined' ? transaction.network: ''%></td>        
                                     <td><%= typeof transaction.createdAt != 'undefined' ? formatDate(transaction.createdAt, 'yyy_MMM_Do  HH:mm:ss'): ''%></td>           

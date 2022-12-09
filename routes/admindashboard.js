@@ -33,7 +33,15 @@ router.get('/transactions', ensureAdminAuth, (req,res)=>{
     try {
         Transaction.find({}, (err, transactions)=>{
 
-            res.render('transactions', {user:req.user, transactions, formatDate, layout: 'LayoutC'})        
+            User.find({}, (err, Users)=>{
+
+                console
+
+                res.render('transactions', {user:req.user, transactions, Users, formatDate, layout: 'LayoutC'}) 
+
+            })
+
+                   
         
         })
         
